@@ -5,7 +5,7 @@ import { CommunityCard, Community } from '@/components/community/CommunityCard';
 import { CreateCommunityModal } from '@/components/community/CreateCommunityModal';
 import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/store/authStore';
-import { Plus, Search, Compass, Sparkles } from 'lucide-react';
+import { Plus, Search, Compass, Sparkles, UsersRound, Star } from 'lucide-react';
 
 const CATEGORIES = [
   'All',
@@ -19,6 +19,14 @@ const CATEGORIES = [
   'Lifestyle',
   'Finance',
 ];
+
+function CommunityGrid({ items }: { items: Community[] }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {items.map((community) => <CommunityCard key={community.id} community={community} />)}
+    </div>
+  );
+}
 
 export default function CommunitiesPage() {
   const [search, setSearch] = useState('');
@@ -34,7 +42,19 @@ export default function CommunitiesPage() {
     `/communities${queryString}`
   );
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
-
+  const communities = data?.communities || [];
+  const ownedCommunities = communities.filter((community) => community.is_owner);
+  const joinedCommunities = communities.filter((community) => !community.is_owner && community.is_member);
+  const exploreCommunities = communities.filter((community) => !community.is_owner && !community.is_member);
+  const interests = new Set(
+    [...ownedCommunities, ...joinedCommunities].flatMap((community) => [community.category, ...(community.tags || [])].filter(Boolean).map((item) => item!.toLowerCase()))
+  );
+  const recommendedCommunities = [...exploreCommunities]
+    .sort((a, b) => {
+      const score = (community: Community) => [community.category, ...(community.tags || [])].filter(Boolean).filter((item) => interests.has(item!.toLowerCase())).length;
+      return score(b) - score(a) || b.member_count - a.member_count;
+    })
+    .slice(0, 3);
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
@@ -67,9 +87,10 @@ export default function CommunitiesPage() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
+              style={selectedCategory === cat ? { backgroundColor: 'var(--primary)', color: '#fff', borderColor: 'var(--primary)', boxShadow: '0 4px 14px color-mix(in srgb, var(--primary) 35%, transparent)' } : undefined}
               className={`px-3 py-1.5 rounded-xl font-bold whitespace-nowrap transition-colors border ${
                 selectedCategory === cat
-                  ? 'bg-[--primary] text-white border-[--primary]'
+                  ? 'ring-2 ring-[--secondary]/60 ring-offset-2 ring-offset-[--background]'
                   : 'bg-[--surface] text-[--muted] border-[--border] hover:text-[--foreground]'
               }`}
             >
@@ -97,11 +118,42 @@ export default function CommunitiesPage() {
             <div key={i} className="h-44 bg-[--surface] rounded-3xl border border-[--border] animate-pulse" />
           ))}
         </div>
-      ) : data?.communities && data.communities.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {data.communities.map((community) => (
-            <CommunityCard key={community.id} community={community} />
-          ))}
+      ) : communities.length > 0 ? (
+        <div className="flex flex-col gap-7">
+          {isAuthenticated && ownedCommunities.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2 mb-3">
+                <UsersRound className="w-4 h-4 text-[--primary]" />
+                <div><h2 className="font-black text-sm">Created by Me</h2><p className="text-xs text-[--muted]">Communities you own and manage.</p></div>
+              </div>
+              <CommunityGrid items={ownedCommunities} />
+            </section>
+          )}
+          {isAuthenticated && joinedCommunities.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2 mb-3">
+                <UsersRound className="w-4 h-4 text-[--primary]" />
+                <div><h2 className="font-black text-sm">Joined Communities</h2><p className="text-xs text-[--muted]">Communities you are a member of.</p></div>
+              </div>
+              <CommunityGrid items={joinedCommunities} />
+            </section>
+          )}
+          {isAuthenticated && recommendedCommunities.length > 0 && (
+            <section>
+              <div className="flex items-center gap-2 mb-3">
+                <Star className="w-4 h-4 text-[--secondary]" />
+                <div><h2 className="font-black text-sm">Recommended for You</h2><p className="text-xs text-[--muted]">Based on your community interests.</p></div>
+              </div>
+              <CommunityGrid items={recommendedCommunities} />
+            </section>
+          )}
+          {exploreCommunities.length > 0 && (
+            <section>
+              {isAuthenticated && (ownedCommunities.length > 0 || joinedCommunities.length > 0 || recommendedCommunities.length > 0) && <div className="flex items-center gap-2 mb-3"><Compass className="w-4 h-4 text-[--primary]" /><div><h2 className="font-black text-sm">Explore Communities</h2><p className="text-xs text-[--muted]">Discover new places to join.</p></div></div>}
+              <CommunityGrid items={exploreCommunities} />
+            </section>
+          )}
+          {isAuthenticated && ownedCommunities.length === 0 && joinedCommunities.length === 0 && exploreCommunities.length > 0 && <p className="text-xs text-[--muted] text-center">Joined communities will appear in their own section.</p>}
         </div>
       ) : (
         <div className="text-center py-16 bg-[--surface] rounded-3xl border border-[--border] p-8">

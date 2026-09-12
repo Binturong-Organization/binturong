@@ -25,6 +25,7 @@ import {
   Eye,
   AlertTriangle,
   Clock,
+  Bot,
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
@@ -170,14 +171,16 @@ export default function CommunityPage() {
         </Link>
 
         {community?.isModerator && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setModModalOpen(true)}
-            className="gap-1.5 text-xs font-bold text-[--primary] border-[--primary]/40 hover:bg-[--primary]/10"
-          >
-            <Settings className="w-3.5 h-3.5" /> Mod Tools
-          </Button>
+          <div className="flex gap-2">
+            <Link href={`/r/${slug}/ai-agent`}>
+              <Button variant="outline" size="sm" className="gap-1.5 text-xs font-bold text-[--primary] border-[--primary]/40 hover:bg-[--primary]/10">
+                <Bot className="w-3.5 h-3.5" /> AI Agent
+              </Button>
+            </Link>
+            <Button variant="outline" size="sm" onClick={() => setModModalOpen(true)} className="gap-1.5 text-xs font-bold text-[--primary] border-[--primary]/40 hover:bg-[--primary]/10">
+              <Settings className="w-3.5 h-3.5" /> Mod Tools
+            </Button>
+          </div>
         )}
       </div>
 
@@ -394,6 +397,22 @@ export default function CommunityPage() {
                 ))}
               </div>
             )}
+          </div>
+
+          {/* Community Limits */}
+          <div className="bg-[--surface] rounded-3xl border border-[--border] p-5 shadow-xs">
+            <div className="flex items-center gap-2 mb-3">
+              <ShieldCheck className="w-4 h-4 text-[--primary]" />
+              <h3 className="font-black text-xs uppercase tracking-wider text-[--muted]">
+                Community Limits
+              </h3>
+            </div>
+            <p className="text-xs text-[--muted] leading-relaxed mb-3">Daily activity limits help keep discussions useful and spam-free.</p>
+            <div className="flex flex-col divide-y divide-[--border] text-xs">
+              <div className="py-2 first:pt-0 flex items-center justify-between gap-3"><span className="font-bold text-[--foreground]">New User</span><span className="text-[--muted] text-right">3 posts · 10 comments</span></div>
+              <div className="py-2 flex items-center justify-between gap-3"><span className="font-bold text-[--foreground]">Established User</span><span className="text-[--muted] text-right">10 posts · 50 comments</span></div>
+              <div className="py-2 last:pb-0 flex items-center justify-between gap-3"><span className="font-bold text-[--foreground]">High Reputation</span><span className="text-[--muted] text-right">20 posts · 100 comments</span></div>
+            </div>
           </div>
 
           {/* Structured Rules */}

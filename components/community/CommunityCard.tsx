@@ -15,6 +15,9 @@ export interface Community {
   is_nsfw?: boolean;
   theme_color?: string;
   member_count: number;
+  is_owner?: boolean;
+  is_member?: boolean;
+  user_role?: string | null;
 }
 
 export function CommunityCard({ community }: { community: Community }) {
