@@ -61,6 +61,41 @@ function CreatePostContent() {
     return () => window.clearTimeout(timer);
   }, [preselectedCommunityId, communitiesData, communityId]);
 
+  const addTagsFromText = (text: string) => {
+    const parts = text
+      .split(/[,;\n]+/)
+      .map((t) => t.trim().toLowerCase().replace(/^#/, ''))
+      .filter(Boolean);
+    if (parts.length === 0) return;
+    const combined = Array.from(new Set([...tags, ...parts])).slice(0, 8);
+    setTags(combined);
+    setTagInput('');
+  };
+
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    if (val.includes(',')) {
+      addTagsFromText(val);
+    } else {
+      setTagInput(val);
+    }
+  };
+
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault();
+      if (tagInput.trim()) {
+        addTagsFromText(tagInput);
+      }
+    }
+  };
+
+  const handleTagPaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text');
+    addTagsFromText(pasted);
+  };
+
   const publishPost = async () => {
     if (!title.trim() || !communityId) {
       setError('Choose a community and add a title before publishing.');
@@ -287,16 +322,10 @@ function CreatePostContent() {
                   {tags.length < 8 && (
                     <input
                       value={tagInput}
-                      onChange={(e) => setTagInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if ((e.key === 'Enter' || e.key === ',') && tagInput.trim()) {
-                          e.preventDefault();
-                          const tag = tagInput.trim().replace(/^#/, '');
-                          if (!tags.includes(tag) && tags.length < 8) setTags([...tags, tag]);
-                          setTagInput('');
-                        }
-                      }}
-                      placeholder={tags.length === 0 ? 'Add a tag and press Enter' : 'Add tag...'}
+                      onChange={handleTagInputChange}
+                      onKeyDown={handleTagKeyDown}
+                      onPaste={handleTagPaste}
+                      placeholder={tags.length === 0 ? 'Paste or type tags separated by commas...' : 'Add tag...'}
                       className="flex-1 min-w-[140px] bg-transparent text-sm text-[--foreground] placeholder-[--muted] focus:outline-none py-1"
                     />
                   )}

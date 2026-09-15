@@ -21,6 +21,7 @@
   --upvote: #E76F51;
   --downvote: #457B9D;
   --ring: rgba(31, 95, 69, 0.2);
+  --dot-color: rgba(92, 110, 102, 0.15);
 }
 
 .dark {
@@ -44,6 +45,7 @@
   --upvote: #F4A261;
   --downvote: #64B5F6;
   --ring: rgba(56, 161, 105, 0.3);
+  --dot-color: rgba(138, 160, 151, 0.25);
 }
 
 @theme inline {
@@ -71,10 +73,10 @@
 }
 
 body {
-  background-color: #020f0d;
+  background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-image: radial-gradient(rgba(138, 160, 151, 0.34) 1.4px, transparent 1.4px);
+  background-image: radial-gradient(var(--dot-color) 1.2px, transparent 1.2px);
   background-size: 24px 24px;
   background-attachment: fixed;
 }
