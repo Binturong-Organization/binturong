@@ -93,3 +93,36 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
 }
+
+/* Theme compatibility utility classes */
+.bg-\[--primary\], .bg-primary { background-color: var(--primary) !important; }
+.bg-\[--primary-hover\], .bg-primary-hover { background-color: var(--primary-hover) !important; }
+.bg-\[--primary-light\], .bg-primary-light { background-color: var(--primary-light) !important; }
+.bg-\[--secondary\], .bg-secondary { background-color: var(--secondary) !important; }
+.bg-\[--surface\], .bg-surface { background-color: var(--surface) !important; }
+.bg-\[--surface-raised\], .bg-surface-raised { background-color: var(--surface-raised) !important; }
+.bg-\[--surface-subtle\], .bg-surface-subtle { background-color: var(--surface-subtle) !important; }
+.bg-\[--background\], .bg-background { background-color: var(--background) !important; }
+
+.text-\[--primary\], .text-primary { color: var(--primary) !important; }
+.text-\[--foreground\], .text-foreground { color: var(--foreground) !important; }
+.text-\[--muted\], .text-muted { color: var(--muted) !important; }
+.border-\[--border\], .border-border { border-color: var(--border) !important; }
+.border-\[--primary\], .border-primary { border-color: var(--primary) !important; }
+
+/* Gradient compatibility classes */
+.from-\[--primary\] { --tw-gradient-from: var(--primary); }
+.to-\[--accent\] { --tw-gradient-to: var(--accent); }
+.bg-gradient-to-r.from-\[--primary\].to-\[--accent\],
+.bg-gradient-to-r.from-primary.to-accent {
+  background-image: linear-gradient(to right, var(--primary), var(--accent)) !important;
+}
+.bg-gradient-to-tr.from-\[--primary\].to-\[--accent\],
+.bg-gradient-to-tr.from-primary.to-accent {
+  background-image: linear-gradient(to top right, var(--primary), var(--accent)) !important;
+}
+.bg-gradient-to-br.from-\[--primary\].to-\[--accent\],
+.bg-gradient-to-br.from-primary.to-accent {
+  background-image: linear-gradient(to bottom right, var(--primary), var(--accent)) !important;
+}
+

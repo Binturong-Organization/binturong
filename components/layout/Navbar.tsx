@@ -37,7 +37,7 @@ export function Navbar() {
         {/* Brand Logo & Tag */}
         <div className="flex items-center gap-6">
           <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-[--primary] to-[--accent] flex items-center justify-center shadow-md shadow-[--primary]/20 group-hover:scale-105 transition-transform">
+            <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-tr from-primary to-accent from-[--primary] to-[--accent] flex items-center justify-center shadow-md shadow-[--primary]/20 group-hover:scale-105 transition-transform">
               <span className="text-white font-black text-lg tracking-wider">B</span>
               <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[--secondary] rounded-full border-2 border-[--surface] flex items-center justify-center" />
             </div>
@@ -103,7 +103,7 @@ export function Navbar() {
                 <Button
                   variant="primary"
                   size="sm"
-                  className="gap-1.5 shadow-md shadow-[--primary]/20 bg-gradient-to-r from-[--primary] to-[--accent] hover:brightness-105 border-0"
+                  className="gap-1.5 shadow-md shadow-[--primary]/20 bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] hover:brightness-105 border-0 text-white"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Create</span>
@@ -211,7 +211,7 @@ export function Navbar() {
                 <Button
                   variant="primary"
                   size="sm"
-                  className="bg-gradient-to-r from-[--primary] to-[--accent] hover:brightness-105 border-0 shadow-md shadow-[--primary]/20"
+                  className="bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] hover:brightness-105 border-0 shadow-md shadow-[--primary]/20 text-white"
                 >
                   Join Binturong
                 </Button>

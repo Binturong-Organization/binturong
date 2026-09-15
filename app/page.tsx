@@ -76,7 +76,7 @@ export default function HomePage() {
 									onClick={() => setSort(value)}
 									className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
 										sort === value
-											? 'bg-[--primary] text-white shadow-sm shadow-[--primary]/20'
+											? 'bg-primary bg-[--primary] text-white shadow-sm shadow-[--primary]/20'
 											: 'text-[--muted] hover:text-[--foreground] hover:bg-black/5 dark:hover:bg-white/5'
 									}`}
 								>
@@ -100,7 +100,7 @@ export default function HomePage() {
 				{/* Right Sidebar Column */}
 				<aside className="w-full lg:w-80 flex-shrink-0 flex flex-col gap-4">
 					{/* Create Post Banner Card */}
-					<div className="relative overflow-hidden bg-gradient-to-br from-[--primary] to-[--accent] rounded-3xl p-6 text-white shadow-lg shadow-[--primary]/15">
+					<div className="relative overflow-hidden bg-gradient-to-br from-primary to-accent from-[--primary] to-[--accent] rounded-3xl p-6 text-white shadow-lg shadow-[--primary]/15">
 						<div className="relative z-10">
 							<div className="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white mb-3">
 								<Sparkles className="w-5 h-5" />

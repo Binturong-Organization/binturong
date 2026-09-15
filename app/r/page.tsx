@@ -75,7 +75,7 @@ export default function CommunitiesPage() {
           <Button
             variant="primary"
             onClick={() => setModalOpen(true)}
-            className="gap-1.5 flex-shrink-0 bg-gradient-to-r from-[--primary] to-[--accent] border-0 shadow-md shadow-[--primary]/20 font-bold text-xs py-2.5 px-4"
+            className="gap-1.5 flex-shrink-0 bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] border-0 shadow-md shadow-[--primary]/20 font-bold text-xs py-2.5 px-4 text-white"
           >
             <Plus className="w-4 h-4" /> Create Community
           </Button>

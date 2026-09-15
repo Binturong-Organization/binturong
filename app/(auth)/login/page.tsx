@@ -75,7 +75,7 @@ export default function LoginPage() {
         <div className="bg-[--surface]/90 backdrop-blur-2xl rounded-3xl border border-[--border] p-8 sm:p-10 shadow-xl shadow-[--primary]/5">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[--primary] to-[--accent] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[--primary]/25">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-primary to-accent from-[--primary] to-[--accent] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[--primary]/25">
               <span className="text-white font-black text-2xl tracking-wider">B</span>
             </div>
             <h1 className="text-2xl font-extrabold text-[--foreground] tracking-tight">
@@ -132,7 +132,7 @@ export default function LoginPage() {
               type="submit"
               variant="primary"
               loading={isSubmitting}
-              className="w-full py-3 mt-2 bg-gradient-to-r from-[--primary] to-[--accent] hover:brightness-105 border-0 shadow-md shadow-[--primary]/20 font-bold"
+              className="w-full py-3 mt-2 bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] hover:brightness-105 border-0 shadow-md shadow-[--primary]/20 font-bold text-white"
             >
               <span>Sign In</span>
               <ArrowRight className="w-4 h-4" />

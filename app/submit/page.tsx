@@ -392,7 +392,7 @@ function CreatePostContent() {
               variant="primary"
               loading={loading}
               disabled={!title.trim() || !communityId}
-              className={`gap-1.5 shadow-md shadow-[--primary]/20 bg-gradient-to-r from-[--primary] to-[--accent] border-0 ${step === 3 ? '' : 'hidden'}`}
+              className={`gap-1.5 shadow-md shadow-[--primary]/20 bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] border-0 text-white ${step === 3 ? '' : 'hidden'}`}
               onClick={publishPost}
             >
               <Send className="w-4 h-4" /><span>Publish Post</span>

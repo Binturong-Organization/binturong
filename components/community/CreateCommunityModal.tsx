@@ -837,7 +837,7 @@ export function CreateCommunityModal({ isOpen, onClose, onSuccess }: CreateCommu
                 type="submit"
                 variant="primary"
                 loading={loading}
-                className="text-xs font-bold px-6 bg-gradient-to-r from-[--primary] to-[--accent] border-0 shadow-md shadow-[--primary]/20"
+                className="text-xs font-bold px-6 bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] border-0 shadow-md shadow-[--primary]/20 text-white"
               >
                 <Sparkles className="w-4 h-4 mr-1.5" />
                 <span>Launch Community</span>

@@ -269,7 +269,7 @@ export default function CommunityPage() {
                     ? 'border-[--primary] text-[--primary]'
                     : community?.hasPendingRequest
                     ? 'border-[--border] text-[--muted]'
-                    : 'bg-gradient-to-r from-[--primary] to-[--accent] text-white border-0 shadow-md shadow-[--primary]/20'
+                    : 'bg-gradient-to-r from-primary to-accent from-[--primary] to-[--accent] text-white border-0 shadow-md shadow-[--primary]/20'
                 }
               >
                 {community?.isMember ? (
