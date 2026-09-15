@@ -6,6 +6,7 @@ import { CreateCommunityModal } from '@/components/community/CreateCommunityModa
 import { Button } from '@/components/ui/Button';
 import { useAuthStore } from '@/store/authStore';
 import { Plus, Search, Compass, Sparkles, UsersRound, Star } from 'lucide-react';
+import { apiFetcher } from '@/lib/api';
 
 const CATEGORIES = [
   'All',
@@ -39,7 +40,8 @@ export default function CommunitiesPage() {
   const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
 
   const { data, isLoading, mutate } = useSWR<{ communities: Community[] }>(
-    `/communities${queryString}`
+    `/communities${queryString}`,
+    apiFetcher
   );
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const communities = data?.communities || [];

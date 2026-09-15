@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const apiFetcher = async <T>(url: string): Promise<T> => {
+  const response = await api.get(url);
+  return (response.data?.data ?? response.data) as T;
+};
+
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api',
   withCredentials: true,

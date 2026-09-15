@@ -12,6 +12,7 @@ interface VoteControlProps {
   initialCount: number;
   initialVote?: number;
   vertical?: boolean;
+  hideCount?: boolean;
 }
 
 export function VoteControl({
@@ -20,6 +21,7 @@ export function VoteControl({
   initialCount,
   initialVote = 0,
   vertical = true,
+  hideCount = false,
 }: VoteControlProps) {
   const [count, setCount] = useState(initialCount);
   const [userVote, setUserVote] = useState(initialVote);
@@ -88,7 +90,7 @@ export function VoteControl({
           userVote === 0 && 'text-[--foreground]'
         )}
       >
-        {formatKarma(count)}
+        {hideCount ? '•' : formatKarma(count)}
       </span>
 
       <button

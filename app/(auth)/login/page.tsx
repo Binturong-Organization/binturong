@@ -55,8 +55,14 @@ export default function LoginPage() {
       await login(data.email, data.password);
       router.push('/');
     } catch (err: unknown) {
-      const e = err as { response?: { data?: { error?: string } } };
-      setError(e.response?.data?.error || 'Invalid email or password');
+      const e = err as { response?: { data?: { error?: string } }; message?: string };
+      if (e.response?.data?.error) {
+        setError(e.response.data.error);
+      } else if (e.message === 'Network Error' || !e.response) {
+        setError('Cannot connect to backend server. Please verify your backend is running and reachable.');
+      } else {
+        setError(e.message || 'Invalid email or password');
+      }
     }
   };
 

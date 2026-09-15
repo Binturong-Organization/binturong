@@ -30,7 +30,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import Link from 'next/link';
-import api from '@/lib/api';
+import api, { apiFetcher } from '@/lib/api';
 import { formatKarma } from '@/lib/utils';
 
 interface RuleItem {
@@ -87,7 +87,7 @@ export default function CommunityPage() {
     data: community,
     mutate: mutateCommunity,
     isLoading: isCommunityLoading,
-  } = useSWR<CommunityDetail>(slug ? `/communities/${slug}` : null);
+  } = useSWR<CommunityDetail>(slug ? `/communities/${slug}` : null, apiFetcher);
 
   const { posts, isLoading: isPostsLoading, hasMore, loadMore } = useCommunityPosts(slug, sort);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -172,7 +172,7 @@ export default function CommunityPage() {
 
         {community?.isModerator && (
           <div className="flex gap-2">
-            <Link href={`/r/${slug}/ai-agent`}>
+            <Link href={`/r/${slug}/ai`}>
               <Button variant="outline" size="sm" className="gap-1.5 text-xs font-bold text-[--primary] border-[--primary]/40 hover:bg-[--primary]/10">
                 <Bot className="w-3.5 h-3.5" /> AI Agent
               </Button>

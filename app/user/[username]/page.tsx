@@ -7,6 +7,7 @@ import { PostCard, Post } from '@/components/post/PostCard';
 import { Award, Calendar, MessageSquare, FileText } from 'lucide-react';
 import { formatKarma, timeAgo } from '@/lib/utils';
 import Link from 'next/link';
+import { apiFetcher } from '@/lib/api';
 
 interface UserProfileData {
   user: {
@@ -35,7 +36,8 @@ export default function UserProfilePage() {
   const [tab, setTab] = useState<'posts' | 'comments'>('posts');
 
   const { data, isLoading } = useSWR<UserProfileData>(
-    username ? `/users/${username}` : null
+    username ? `/users/${username}` : null,
+    apiFetcher
   );
 
   if (isLoading) {

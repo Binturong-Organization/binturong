@@ -23,6 +23,10 @@ export interface Post {
   community_icon?: string;
   is_pinned?: boolean;
   userVote?: number;
+  likes_hidden?: boolean;
+  comment_permission?: 'everyone' | 'members' | 'nobody';
+  view_permission?: 'everyone' | 'members';
+  likes_visibility?: 'everyone' | 'members' | 'author';
 }
 
 interface PostCardProps {
@@ -50,8 +54,9 @@ export function PostCard({ post, compact }: PostCardProps) {
         <VoteControl
           targetType="post"
           targetId={post.id}
-          initialCount={post.vote_count}
+          initialCount={post.vote_count ?? 0}
           initialVote={post.userVote}
+          hideCount={post.likes_hidden}
         />
       </div>
 

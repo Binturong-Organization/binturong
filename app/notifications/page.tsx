@@ -8,7 +8,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
 import { timeAgo } from '@/lib/utils';
 import Link from 'next/link';
-import api from '@/lib/api';
+import api, { apiFetcher } from '@/lib/api';
 
 interface NotificationItem {
   id: string;
@@ -32,7 +32,8 @@ export default function NotificationsPage() {
   }, [isAuthenticated, router]);
 
   const { data, mutate, isLoading } = useSWR<{ notifications: NotificationItem[]; unreadCount: number }>(
-    isAuthenticated ? '/notifications' : null
+    isAuthenticated ? '/notifications' : null,
+    apiFetcher
   );
 
   const handleMarkAllRead = async () => {

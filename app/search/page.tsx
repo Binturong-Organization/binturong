@@ -8,6 +8,7 @@ import { Avatar } from '@/components/ui/Avatar';
 import { Search, FileText, Users, User as UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { formatKarma } from '@/lib/utils';
+import { apiFetcher } from '@/lib/api';
 
 interface SearchResults {
   posts?: Post[];
@@ -29,7 +30,8 @@ function SearchContent() {
   const [tab, setTab] = useState<'posts' | 'communities' | 'users'>('posts');
 
   const { data, isLoading } = useSWR<{ data: SearchResults }>(
-    q.length >= 2 ? `/search?q=${encodeURIComponent(q)}&type=all` : null
+    q.length >= 2 ? `/search?q=${encodeURIComponent(q)}&type=all` : null,
+    apiFetcher
   );
 
   const results = data?.data;

@@ -8,15 +8,17 @@ import { CommentType } from '@/components/comment/CommentCard';
 import { MessageSquare, ArrowLeft, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
+import { apiFetcher } from '@/lib/api';
 
 export default function PostDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params?.id as string;
 
-  const { data: post, isLoading: isPostLoading } = useSWR<Post>(id ? `/posts/${id}` : null);
+  const { data: post, isLoading: isPostLoading } = useSWR<Post>(id ? `/posts/${id}` : null, apiFetcher);
   const { data: comments, mutate: mutateComments, isLoading: isCommentsLoading } = useSWR<CommentType[]>(
-    id ? `/comments/post/${id}` : null
+    id ? `/comments/post/${id}` : null,
+    apiFetcher
   );
 
   if (isPostLoading && !post) {
@@ -79,9 +81,15 @@ export default function PostDetailPage() {
         </div>
 
         {/* Comment input form */}
-        <div className="bg-[--surface-subtle] p-4 rounded-2xl border border-[--border]">
-          <CommentForm postId={id} onSuccess={() => mutateComments()} />
-        </div>
+        {post && post.comment_permission === 'nobody' ? (
+          <div className="bg-[--surface-subtle] p-4 rounded-2xl border border-[--border] text-xs text-[--muted] font-semibold">
+            Comments are locked on this post.
+          </div>
+        ) : (
+          <div className="bg-[--surface-subtle] p-4 rounded-2xl border border-[--border]">
+            <CommentForm postId={id} onSuccess={() => mutateComments()} />
+          </div>
+        )}
 
         {/* Threaded Comments */}
         {isCommentsLoading && !comments ? (
